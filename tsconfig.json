@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowJs": true,
+    "checkJs": false,
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "tests/**/*.js",
+    "vitest.config.js"
+  ]
+}
