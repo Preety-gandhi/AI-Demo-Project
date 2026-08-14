@@ -1,0 +1,30 @@
+{
+  "name": "patient-management-system",
+  "version": "0.1.0",
+  "description": "Patient Management System - Vanilla JS + HTML/CSS",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run tests/unit",
+    "test:unit:watch": "vitest tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:integration:watch": "vitest tests/integration",
+    "test:e2e": "playwright test",
+    "test:e2e:watch": "playwright test --ui",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "patient",
+    "management",
+    "healthcare",
+    "medical"
+  ],
+  "author": "Development Team",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitest/ui": "^1.0.4",
+    "@playwright/test": "^1.40.1",
+    "vitest": "^1.0.4"
+  }
+}

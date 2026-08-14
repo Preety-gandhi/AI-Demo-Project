@@ -117,22 +117,6 @@ Then the system prevents export and displays "No data available to export"
 
 ---
 
-### F8 — Secure Single-User Login
-**Source:** Inferred from NFR (Security) | Inferred
-**Description:** Authenticate the single physician user to the application to protect PHI and comply with security requirements.
-
-**Scenario 1: Happy path**
-Given the physician enters valid credentials
-When they submit the login form
-Then the system authenticates and redirects to the dashboard
-
-**Scenario 2: Failed authentication**
-Given the physician enters incorrect credentials
-When they submit the login form
-Then the system rejects access and displays an authentication error without revealing specifics
-
----
-
 ## Implementation Constraints (Not Features)
 - Data must be encrypted at rest and in transit (TLS + DB encryption).
 - Automated backups must be scheduled and recoverable.
@@ -148,7 +132,6 @@ Then the system rejects access and displays an authentication error without reve
 - **F5 — Visit History Review:** Medium — listing and filtering (2–3 days).
 - **F6 — Patient Search and Navigation:** Small — search and navigation (1–2 days).
 - **F7 — Data Export:** Small — CSV/PDF generation (1–2 days).
-- **F8 — Secure Single-User Login:** Small — auth flow (1–2 days).
 
 ## Accuracy Report
 
@@ -157,15 +140,14 @@ Then the system rejects access and displays an authentication error without reve
 - Non-Functional Requirements (NFRs): Usability, Performance, Reliability, Security, Scalability, Compatibility — represented as Implementation Constraints and one inferred feature (Secure Login).
 
 ### Scenario Relevance & Testability
-- Total features: 8
-- Total scenarios: 16 (2 per feature)
+- Total features: 7
+- Total scenarios: 14 (2 per feature)
 - BRD-direct scenarios: 14 (derived explicitly from functional text)
-- Inferred scenarios (from NFR): 2 (security/auth)
 - High testability: all scenarios are concrete Given/When/Then statements and map to validation rules or observable outcomes.
 
 ### Coverage Table (summary)
 - Functional Coverage: 100% (all BRD functional items represented)
-- NFR Coverage: ~83% (most NFRs represented as constraints; encryption/auth inferred)
+- NFR Coverage: ~83% (most NFRs represented as constraints)
 
 **Overall Accuracy Verdict:** Ready for Spec writing — minor NFR items are captured as constraints and one inferred auth feature; no blocking gaps identified.
 
