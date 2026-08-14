@@ -1,0 +1,149 @@
+:root {
+  --ink: #132026;
+  --ink-soft: #47616d;
+  --card: #ffffff;
+  --line: #d6e1e6;
+  --accent: #0c6b5a;
+  --accent-strong: #074f43;
+  --muted-btn: #e8eef1;
+  --bg: linear-gradient(130deg, #fdf7eb 0%, #e9f4ef 48%, #dbeef7 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Gill Sans", "Lucida Sans", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-shape {
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  border-radius: 32% 68% 57% 43% / 37% 35% 65% 63%;
+  filter: blur(2px);
+  opacity: 0.28;
+  z-index: 0;
+}
+
+.bg-shape-top {
+  top: -120px;
+  right: -80px;
+  background: #a5dec4;
+}
+
+.bg-shape-bottom {
+  bottom: -150px;
+  left: -95px;
+  background: #9ccbe6;
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 92vw);
+  margin: 2.5rem auto;
+}
+
+.hero {
+  margin-bottom: 1.4rem;
+}
+
+.eyebrow {
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+
+h1 {
+  margin: 0.15rem 0 0.35rem;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+}
+
+.tagline {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.feature-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(7, 38, 48, 0.1);
+}
+
+.feature-card-live {
+  border-top: 6px solid #38a37d;
+}
+
+.feature-card-soon {
+  border-top: 6px solid #86adc4;
+}
+
+.status-pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  background: #ecf7f2;
+  color: #1e6a53;
+}
+
+h2 {
+  margin: 0 0 0.45rem;
+  font-size: 1.15rem;
+}
+
+.feature-card p {
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.launch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  border: none;
+  text-decoration: none;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+}
+
+.launch-btn:hover {
+  background: var(--accent-strong);
+}
+
+button.launch-btn[disabled] {
+  color: #5d7180;
+  background: var(--muted-btn);
+  cursor: not-allowed;
+}
+
+@media (max-width: 540px) {
+  .shell {
+    margin-top: 1.4rem;
+  }
+}

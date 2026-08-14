@@ -351,6 +351,161 @@ Then: The system should:
 
 ---
 
+## Failure Unit Test Cases
+
+### Unit Failure: Store save failure on valid submission
+#### Test: `test_UNIT_FAIL_save_patient_store_rejects_request`
+```
+Given: The registration form contains valid Name and Contact
+  AND the patient store `save(patient)` method is mocked to reject with an error
+
+When: The physician submits the form
+
+Then: The system should:
+  - Catch the save failure without crashing
+  - Show a failure message such as "Unable to save patient profile"
+  - Keep the entered form values for retry
+  - NOT display success confirmation
+  - NOT navigate to patient list as a successful create
+```
+
+**Mocks/Fixtures:**
+- Mock patient store with rejected promise from `save(patient)`
+- Valid patient form state
+- Mock error display and navigation handlers
+
+**Binary Pass/Fail:**
+- ✓ **PASS**: Error shown, no success flow, and form state preserved
+- ✗ **FAIL**: Unhandled error, false success, or data cleared unexpectedly
+
+---
+
+### Unit Failure: Validation engine unavailable
+#### Test: `test_UNIT_FAIL_validation_service_unavailable`
+```
+Given: The physician has entered form data
+  AND the validation module throws runtime error during `validateAll(formData)`
+
+When: The physician submits the form
+
+Then: The system should:
+  - Fail safely and block submission
+  - Display a generic validation failure message
+  - NOT call patient store `save(patient)`
+  - Log or surface the internal failure for diagnostics
+```
+
+**Mocks/Fixtures:**
+- Mock validator that throws on `validateAll`
+- Spy on store `save(patient)` to verify zero calls
+- Mock error display/logger
+
+**Binary Pass/Fail:**
+- ✓ **PASS**: Submission blocked and no persistence call made
+- ✗ **FAIL**: Save attempted or crash propagated to user
+
+---
+
+### Unit Failure: Duplicate check service timeout
+#### Test: `test_UNIT_FAIL_duplicate_check_timeout`
+```
+Given: The physician enters Name and Contact values
+  AND duplicate lookup `findByNameAndContact()` times out
+
+When: The physician submits the form
+
+Then: The system should:
+  - Handle timeout gracefully
+  - Show retry guidance or temporary service error
+  - NOT silently create patient when duplicate status is unknown
+```
+
+**Mocks/Fixtures:**
+- Mock duplicate lookup with timeout/rejection
+- Mock user-facing error message and retry action
+
+**Binary Pass/Fail:**
+- ✓ **PASS**: Timeout handled and unsafe create prevented
+- ✗ **FAIL**: Silent create or unhandled timeout error
+
+---
+
+## Failure Integration Test Cases
+
+### Integration Failure: Backend returns 500 on create
+#### Test: `test_INT_FAIL_create_patient_api_500`
+```
+Given: The physician enters valid patient details in the UI
+  AND the create-patient API endpoint responds with HTTP 500
+
+When: The physician submits the form
+
+Then: The system should:
+  - Keep the user on registration screen
+  - Display a clear non-technical error message
+  - Preserve entered values for correction/retry
+  - Ensure patient is not present in patient list/store
+```
+
+**Integration Setup:**
+- API/mock server route for create returns 500
+- UI + API wiring enabled (near-production integration path)
+
+**Binary Pass/Fail:**
+- ✓ **PASS**: User sees actionable error and no false persistence occurs
+- ✗ **FAIL**: Success state shown or patient created despite 500
+
+---
+
+### Integration Failure: Network disconnect during submit
+#### Test: `test_INT_FAIL_network_disconnect_on_submit`
+```
+Given: The physician has entered valid Name and Contact
+  AND network is interrupted at submit time
+
+When: The physician clicks "Submit"
+
+Then: The system should:
+  - Show connectivity failure message
+  - Keep the form data intact
+  - Allow retry after connectivity restoration
+  - Prevent duplicate or partial writes once retried
+```
+
+**Integration Setup:**
+- Simulated offline mode or request abort during POST create call
+- Retry path enabled after network restoration
+
+**Binary Pass/Fail:**
+- ✓ **PASS**: Offline error handled and retry succeeds once online
+- ✗ **FAIL**: Data lost, repeated duplicate create, or silent failure
+
+---
+
+### Integration Failure: Concurrent double submit
+#### Test: `test_INT_FAIL_double_submit_race_condition`
+```
+Given: The physician enters valid patient details
+  AND the submit button can be clicked rapidly
+
+When: The physician triggers submit twice before first request completes
+
+Then: The system should:
+  - Debounce/lock submission to a single create request
+  - Show one consistent outcome to the user
+  - Create at most one patient record
+```
+
+**Integration Setup:**
+- Slow create API response to expose race condition
+- UI event simulation for rapid double-click submit
+
+**Binary Pass/Fail:**
+- ✓ **PASS**: Only one persisted patient and one user outcome
+- ✗ **FAIL**: Duplicate records or conflicting UI state
+
+---
+
 ## Fixtures & Mocks Reference
 
 ### Patient Data Fixtures
@@ -449,6 +604,12 @@ Each test is designed to:
 9. `test_AC1_create_patient_with_special_characters_in_name` — Data handling edge case
 10. `test_AC1_create_patient_duplicate_check` — Business logic edge case
 11. `test_AC2_clear_validation_error_on_field_input` — UX feedback test
+12. `test_UNIT_FAIL_save_patient_store_rejects_request` — Unit failure: persistence rejection
+13. `test_UNIT_FAIL_validation_service_unavailable` — Unit failure: validator runtime error
+14. `test_UNIT_FAIL_duplicate_check_timeout` — Unit failure: duplicate lookup timeout
+15. `test_INT_FAIL_create_patient_api_500` — Integration failure: backend error handling
+16. `test_INT_FAIL_network_disconnect_on_submit` — Integration failure: offline/retry behavior
+17. `test_INT_FAIL_double_submit_race_condition` — Integration failure: concurrency safety
 
 ---
 
