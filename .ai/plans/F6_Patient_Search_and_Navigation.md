@@ -1,9 +1,9 @@
 # Plan: F6 — Patient Search and Navigation
 
 ## Source
-**Reference:** [.github/specs/features/PatientManagement.feature.md](../../.github/specs/features/PatientManagement.feature.md) | F6 — Patient Search and Navigation
+**Reference:** [specs/features/PatientManagement.feature.md](../../specs/features/PatientManagement.feature.md) | F6 — Patient Search and Navigation
 
-**Spec Location:** [.github/specs/F6_Patient_Search_and_Navigation.md](../../.github/specs/F6_Patient_Search_and_Navigation.md)
+**Spec Location:** [specs/F6_Patient_Search_and_Navigation.md](../../specs/F6_Patient_Search_and_Navigation.md)
 
 ---
 

@@ -1,9 +1,9 @@
 # Plan: F7 — Data Export (CSV/PDF)
 
 ## Source
-**Reference:** [.github/specs/features/PatientManagement.feature.md](../../.github/specs/features/PatientManagement.feature.md) | F7 — Data Export (CSV/PDF)
+**Reference:** [specs/features/PatientManagement.feature.md](../../specs/features/PatientManagement.feature.md) | F7 — Data Export (CSV/PDF)
 
-**Spec Location:** [.github/specs/F7_Data_Export.md](../../.github/specs/F7_Data_Export.md)
+**Spec Location:** [specs/F7_Data_Export.md](../../specs/F7_Data_Export.md)
 
 ---
 

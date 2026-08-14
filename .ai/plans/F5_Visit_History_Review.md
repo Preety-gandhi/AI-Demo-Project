@@ -1,9 +1,9 @@
 # Plan: F5 — Visit History Review
 
 ## Source
-**Reference:** [.github/specs/features/PatientManagement.feature.md](../../.github/specs/features/PatientManagement.feature.md) | F5 — Visit History Review
+**Reference:** [specs/features/PatientManagement.feature.md](../../specs/features/PatientManagement.feature.md) | F5 — Visit History Review
 
-**Spec Location:** [.github/specs/F5_Visit_History_Review.md](../../.github/specs/F5_Visit_History_Review.md)
+**Spec Location:** [specs/F5_Visit_History_Review.md](../../specs/F5_Visit_History_Review.md)
 
 ---
 

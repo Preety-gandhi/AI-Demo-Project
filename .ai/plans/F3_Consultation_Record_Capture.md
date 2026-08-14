@@ -1,9 +1,9 @@
 # Plan: F3 — Consultation Record Capture
 
 ## Source
-**Reference:** [.github/specs/features/PatientManagement.feature.md](../../.github/specs/features/PatientManagement.feature.md) | F3 — Consultation Record Capture
+**Reference:** [specs/features/PatientManagement.feature.md](../../specs/features/PatientManagement.feature.md) | F3 — Consultation Record Capture
 
-**Spec Location:** [.github/specs/F3_Consultation_Record_Capture.md](../../.github/specs/F3_Consultation_Record_Capture.md)
+**Spec Location:** [specs/F3_Consultation_Record_Capture.md](../../specs/F3_Consultation_Record_Capture.md)
 
 ---
 

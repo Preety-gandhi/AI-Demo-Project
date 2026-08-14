@@ -1,9 +1,9 @@
 # Plan: F1 — Patient Profile Management
 
 ## Source
-**Reference:** [.github/specs/features/PatientManagement.feature.md](../../.github/specs/features/PatientManagement.feature.md) | F1 — Patient Profile Management
+**Reference:** [specs/features/PatientManagement.feature.md](../../specs/features/PatientManagement.feature.md) | F1 — Patient Profile Management
 
-**Spec Location:** [.github/specs/F1_Patient_Profile_Management.md](../../.github/specs/F1_Patient_Profile_Management.md)
+**Spec Location:** [specs/F1_Patient_Profile_Management.md](../../specs/F1_Patient_Profile_Management.md)
 
 ---
 

@@ -1,5 +1,5 @@
 # Test Specification: F1 — Patient Profile Management
-**Source Spec:** `.github/specs/F1_Patient_Profile_Management.md`
+**Source Spec:** `specs/F1_Patient_Profile_Management.md`
 
 ---
 

@@ -1,9 +1,9 @@
 # Plan: F2 — Appointment Scheduling
 
 ## Source
-**Reference:** [.github/specs/features/PatientManagement.feature.md](../../.github/specs/features/PatientManagement.feature.md) | F2 — Appointment Scheduling
+**Reference:** [specs/features/PatientManagement.feature.md](../../specs/features/PatientManagement.feature.md) | F2 — Appointment Scheduling
 
-**Spec Location:** [.github/specs/F2_Appointment_Scheduling.md](../../.github/specs/F2_Appointment_Scheduling.md)
+**Spec Location:** [specs/F2_Appointment_Scheduling.md](../../specs/F2_Appointment_Scheduling.md)
 
 ---
 

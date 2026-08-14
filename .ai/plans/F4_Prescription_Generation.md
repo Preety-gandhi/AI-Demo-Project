@@ -1,9 +1,9 @@
 # Plan: F4 — Prescription Generation
 
 ## Source
-**Reference:** [.github/specs/features/PatientManagement.feature.md](../../.github/specs/features/PatientManagement.feature.md) | F4 — Prescription Generation
+**Reference:** [specs/features/PatientManagement.feature.md](../../specs/features/PatientManagement.feature.md) | F4 — Prescription Generation
 
-**Spec Location:** [.github/specs/F4_Prescription_Generation.md](../../.github/specs/F4_Prescription_Generation.md)
+**Spec Location:** [specs/F4_Prescription_Generation.md](../../specs/F4_Prescription_Generation.md)
 
 ---
 
@@ -607,7 +607,7 @@
 
 ### Phase 6: Testing & Verification
 
-**Step 15 — Create prescription generation test cases** (document in `.github/specs/F4_Prescription_Generation.md` or separate test file)
+**Step 15 — Create prescription generation test cases** (document in `specs/F4_Prescription_Generation.md` or separate test file)
 - **What:** Comprehensive test scenarios for prescription generation:
   - **Happy path:**
     - Generate prescription from consultation with 1 medication ✓
