@@ -1,4 +1,5 @@
 const requiredFields = ["name", "contact"];
+const PATIENT_STORAGE_KEY = "pms.f1.patients";
 
 function structuredLog(event, details = {}) {
   console.info(JSON.stringify({ feature: "F1", event, ...details }));
@@ -20,8 +21,65 @@ function toPatientPayload(formValues) {
 
 class InMemoryPatientStore {
   constructor() {
-    this._patients = [];
-    this._nextId = 1;
+    const persistedPatients = this._readPersistedPatients();
+    this._patients = persistedPatients;
+    this._nextId = this._deriveNextId(persistedPatients);
+  }
+
+  _isStorageAvailable() {
+    try {
+      return typeof window !== "undefined" && !!window.localStorage;
+    } catch {
+      return false;
+    }
+  }
+
+  _readPersistedPatients() {
+    if (!this._isStorageAvailable()) {
+      return [];
+    }
+
+    const raw = window.localStorage.getItem(PATIENT_STORAGE_KEY);
+    if (!raw) {
+      return [];
+    }
+
+    try {
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) {
+        return [];
+      }
+
+      return parsed
+        .filter((patient) => patient && typeof patient.id === "number")
+        .map((patient) => ({
+          id: patient.id,
+          name: normalizeText(patient.name),
+          contact: normalizeText(patient.contact),
+          dateOfBirth: normalizeText(patient.dateOfBirth),
+          gender: normalizeText(patient.gender),
+          address: normalizeText(patient.address),
+        }));
+    } catch {
+      return [];
+    }
+  }
+
+  _persistPatients() {
+    if (!this._isStorageAvailable()) {
+      return;
+    }
+
+    window.localStorage.setItem(PATIENT_STORAGE_KEY, JSON.stringify(this._patients));
+  }
+
+  _deriveNextId(patients) {
+    if (!patients.length) {
+      return 1;
+    }
+
+    const maxId = patients.reduce((max, patient) => Math.max(max, patient.id), 0);
+    return maxId + 1;
   }
 
   getAll() {
@@ -47,6 +105,7 @@ class InMemoryPatientStore {
   create(patientInput) {
     const patient = { id: this._nextId++, ...patientInput };
     this._patients.push(patient);
+    this._persistPatients();
     return patient;
   }
 
@@ -58,6 +117,7 @@ class InMemoryPatientStore {
 
     const updated = { ...this._patients[index], ...patientInput };
     this._patients[index] = updated;
+    this._persistPatients();
     return updated;
   }
 }
