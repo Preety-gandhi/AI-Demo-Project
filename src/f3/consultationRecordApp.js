@@ -1,5 +1,12 @@
 function structuredLog(event, details = {}) {
-  console.info(JSON.stringify({ feature: "F3", event, ...details }));
+  const timestamp = new Date().toISOString();
+  const logEntry = {
+    feature: "F3",
+    event,
+    timestamp,
+    ...details,
+  };
+  console.info(JSON.stringify(logEntry));
 }
 
 const F1_PATIENT_STORAGE_KEY = "pms.f1.patients";
@@ -427,7 +434,11 @@ export function createConsultationRecordApp({
     if (Object.keys(errors).length) {
       validationContainer.innerHTML = renderErrorSummary(errors);
       showStatus("Consultation not saved. Mandatory vitals are missing.", "error");
-      structuredLog("save_exit", { result: "validation_failed", errors });
+      structuredLog("consultation_validation_failed", {
+        result: "validation_failed",
+        errorCount: Object.keys(errors).length,
+        errorFields: Object.keys(errors),
+      });
       return;
     }
 
@@ -439,7 +450,15 @@ export function createConsultationRecordApp({
     renderPatientHistory(payload.patientId);
     resetForm();
 
-    structuredLog("save_exit", { result: "success", consultationId: consultation.id });
+    structuredLog("consultation_created", {
+      result: "success",
+      consultationId: consultation.id,
+      vitalsCaptured: ['temperature', 'bloodPressure', 'pulse'],
+      complaintsCaptured: !!payload.complaints,
+      diagnosisCaptured: !!payload.diagnosis,
+      medicationCount: payload.medications.length,
+      linkedToPatientHistory: true,
+    });
   });
 
   resetBtn.addEventListener("click", () => {

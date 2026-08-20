@@ -1,5 +1,12 @@
 function structuredLog(event, details = {}) {
-  console.info(JSON.stringify({ feature: "F2", event, ...details }));
+  const timestamp = new Date().toISOString();
+  const logEntry = {
+    feature: "F2",
+    event,
+    timestamp,
+    ...details,
+  };
+  console.info(JSON.stringify(logEntry));
 }
 
 const F1_PATIENT_STORAGE_KEY = "pms.f1.patients";
@@ -433,7 +440,11 @@ export function createAppointmentSchedulingApp({
     if (Object.keys(errors).length) {
       validationContainer.innerHTML = renderErrorSummary(errors);
       activeAlternatives = [];
-      structuredLog("submit_exit", { result: "validation_failed", errors });
+      structuredLog("appointment_validation_failed", {
+        result: "validation_failed",
+        errorCount: Object.keys(errors).length,
+        errorFields: Object.keys(errors),
+      });
       return;
     }
 
@@ -444,21 +455,44 @@ export function createAppointmentSchedulingApp({
         conflict: "Requested slot is unavailable.",
       })}${renderAlternatives(payload.date, activeAlternatives)}`;
       showStatus("Appointment not saved because the slot is unavailable.", "error");
-      structuredLog("submit_exit", { result: "conflict", alternatives: activeAlternatives });
+      structuredLog("appointment_conflict", {
+        result: "conflict_rejected",
+        reason: "time_slot_unavailable",
+        requestedDate: payload.date,
+        requestedTime: payload.time,
+        alternativesCount: activeAlternatives.length,
+      });
       return;
     }
 
     if (editingId === null) {
-      store.create(payload);
+      const appointment = store.create(payload);
       showStatus("Appointment saved with status Scheduled.");
+      structuredLog("appointment_created", {
+        result: "success",
+        appointmentId: appointment.id,
+        date: payload.date,
+        time: payload.time,
+        status: appointment.status,
+      });
     } else {
       const updated = store.update(editingId, payload);
       if (!updated) {
         showStatus("Unable to update appointment. Please retry.", "error");
-        structuredLog("submit_exit", { result: "update_failed_missing_id" });
+        structuredLog("appointment_update_failed", {
+          result: "update_failed",
+          reason: "appointment_not_found",
+          appointmentId: editingId,
+        });
         return;
       }
       showStatus("Appointment updated successfully.");
+      structuredLog("appointment_updated", {
+        result: "success",
+        appointmentId: editingId,
+        date: payload.date,
+        time: payload.time,
+      });
     }
 
     validationContainer.innerHTML = "";
@@ -466,7 +500,6 @@ export function createAppointmentSchedulingApp({
     scheduleDateInput.value = payload.date;
     renderScheduleList();
     clearEditMode();
-    structuredLog("submit_exit", { result: "success" });
   });
 
   cancelEditBtn.addEventListener("click", () => {
