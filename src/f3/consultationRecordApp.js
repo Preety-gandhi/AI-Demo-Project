@@ -91,10 +91,17 @@ class ConsultationStore {
 
   _persistConsultations() {
     if (!this._isStorageAvailable()) {
+      console.warn("❌ Storage not available in ConsultationStore");
       return;
     }
 
-    window.localStorage.setItem(F3_CONSULTATION_STORAGE_KEY, JSON.stringify(this._consultations));
+    const data = JSON.stringify(this._consultations);
+    window.localStorage.setItem(F3_CONSULTATION_STORAGE_KEY, data);
+    console.log("💾 Consultations persisted:", {
+      key: F3_CONSULTATION_STORAGE_KEY,
+      count: this._consultations.length,
+      data: this._consultations
+    });
   }
 
   _deriveNextId(consultations) {
@@ -161,10 +168,17 @@ class PatientHistoryStore {
 
   _persistLinks() {
     if (!this._isStorageAvailable()) {
+      console.warn("❌ Storage not available in PatientHistoryStore");
       return;
     }
 
-    window.localStorage.setItem(F3_HISTORY_LINKS_KEY, JSON.stringify(this._links));
+    const data = JSON.stringify(this._links);
+    window.localStorage.setItem(F3_HISTORY_LINKS_KEY, data);
+    console.log("💾 History links persisted:", {
+      key: F3_HISTORY_LINKS_KEY,
+      count: this._links.length,
+      data: this._links
+    });
   }
 
   linkVisit(patientId, consultationId) {
@@ -415,12 +429,20 @@ export function createConsultationRecordApp({
   }
 
   function renderPatientHistory(patientId) {
+    console.log("🔍 Rendering history for patient:", patientId);
     const linkedIds = historyStore.getConsultationIdsByPatient(patientId);
+    console.log("📍 Linked consultation IDs:", linkedIds);
+    
     const items = linkedIds
-      .map((id) => consultationStore.getById(id))
+      .map((id) => {
+        const item = consultationStore.getById(id);
+        console.log(`   - Consultation ${id}:`, item);
+        return item;
+      })
       .filter(Boolean)
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
+    console.log("📊 Final history items:", items);
     historyList.innerHTML = renderHistory(patientId, items);
   }
 
@@ -430,6 +452,8 @@ export function createConsultationRecordApp({
     clearStatus();
 
     const payload = readFormPayload();
+    console.log("📋 Form payload:", payload);
+    
     const errors = validate(payload);
     if (Object.keys(errors).length) {
       validationContainer.innerHTML = renderErrorSummary(errors);
@@ -443,7 +467,10 @@ export function createConsultationRecordApp({
     }
 
     const consultation = consultationStore.create(payload);
-    historyStore.linkVisit(payload.patientId, consultation.id);
+    console.log("✅ Consultation created:", consultation);
+    
+    const link = historyStore.linkVisit(payload.patientId, consultation.id);
+    console.log("🔗 Link created:", link);
 
     validationContainer.innerHTML = "";
     showStatus("Consultation saved and linked to patient history.", "success");
