@@ -1,7 +1,8 @@
 # No Test Weakening Rule
 
-## Never Weaken Tests
-NEVER remove, skip, or weaken a test assertion. Green build ≠ correct code.
+## What It Enforces
+- NEVER remove, skip, or weaken a test assertion.
+- Green build ≠ correct code.
 
 ## Required Practice
 - Keep all test assertions intact and meaningful.
