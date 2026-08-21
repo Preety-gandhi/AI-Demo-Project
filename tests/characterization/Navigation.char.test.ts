@@ -23,13 +23,13 @@ describe("Navigation launcher characterization", () => {
     f4Html = fs.readFileSync(f4Path, "utf-8");
   });
 
-  it("happy path: home page exposes top nav links for Home and F1-F4", () => {
+  it("happy path: home page exposes top nav links for Home and renamed module labels", () => {
     expect(homeHtml).toContain('<nav class="top-nav" aria-label="Primary">');
     expect(homeHtml).toContain('<a class="top-nav-link is-active" href="./index.html" aria-current="page">Home</a>');
-    expect(homeHtml).toContain('<a class="top-nav-link" href="./f1/index.html">F1</a>');
-    expect(homeHtml).toContain('<a class="top-nav-link" href="./f2/index.html">F2</a>');
-    expect(homeHtml).toContain('<a class="top-nav-link" href="./f3/index.html">F3</a>');
-    expect(homeHtml).toContain('<a class="top-nav-link" href="./f4/index.html">F4</a>');
+    expect(homeHtml).toContain('<a class="top-nav-link" href="./f1/index.html">Patient</a>');
+    expect(homeHtml).toContain('<a class="top-nav-link" href="./f2/index.html">Appointment</a>');
+    expect(homeHtml).toContain('<a class="top-nav-link" href="./f3/index.html">Consultation</a>');
+    expect(homeHtml).toContain('<a class="top-nav-link" href="./f4/index.html">Prescription</a>');
   });
 
   it("happy path: home launcher cards include F1-F4 live modules", () => {
@@ -44,10 +44,10 @@ describe("Navigation launcher characterization", () => {
   });
 
   it("happy path: each feature page has top nav and current section active", () => {
-    expect(f1Html).toContain('<a class="top-nav-link is-active" href="../f1/index.html" aria-current="page">F1</a>');
-    expect(f2Html).toContain('<a class="top-nav-link is-active" href="../f2/index.html" aria-current="page">F2</a>');
-    expect(f3Html).toContain('<a class="top-nav-link is-active" href="../f3/index.html" aria-current="page">F3</a>');
-    expect(f4Html).toContain('<a class="top-nav-link is-active" href="../f4/index.html" aria-current="page">F4</a>');
+    expect(f1Html).toContain('<a class="top-nav-link is-active" href="../f1/index.html" aria-current="page">Patient</a>');
+    expect(f2Html).toContain('<a class="top-nav-link is-active" href="../f2/index.html" aria-current="page">Appointment</a>');
+    expect(f3Html).toContain('<a class="top-nav-link is-active" href="../f3/index.html" aria-current="page">Consultation</a>');
+    expect(f4Html).toContain('<a class="top-nav-link is-active" href="../f4/index.html" aria-current="page">Prescription</a>');
   });
 
   it("error-path characterization: planned modules remain non-navigable and disabled", () => {
