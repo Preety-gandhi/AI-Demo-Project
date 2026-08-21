@@ -194,7 +194,7 @@ button {
     background: #fff;
   }
 
-  .back-link-wrap,
+  .top-nav-wrap,
   .panel:first-child {
     display: none;
   }

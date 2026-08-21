@@ -10,11 +10,25 @@
     <div class="bg-shape bg-shape-top" aria-hidden="true"></div>
     <div class="bg-shape bg-shape-bottom" aria-hidden="true"></div>
 
+    <header class="top-nav-wrap">
+      <nav class="top-nav" aria-label="Primary">
+        <a class="top-nav-brand" href="./index.html" aria-current="page">Patient Management</a>
+        <div class="top-nav-links">
+          <a class="top-nav-link is-active" href="./index.html" aria-current="page">Home</a>
+          <a class="top-nav-link" href="./f1/index.html">Patient</a>
+          <a class="top-nav-link" href="./f2/index.html">Appointment</a>
+          <a class="top-nav-link" href="./f3/index.html">Consultation</a>
+          <a class="top-nav-link" href="./f4/index.html">Prescription</a>
+          <span class="top-nav-link top-nav-link-disabled" aria-disabled="true">F5-F7 Planned</span>
+        </div>
+      </nav>
+    </header>
+
     <main class="shell">
       <header class="hero">
         <p class="eyebrow">Patient Management System</p>
-        <h1>Feature Launcher</h1>
-        <p class="tagline">Start a feature flow quickly from a single navigation page.</p>
+        <h1>Feature Navigation</h1>
+        <p class="tagline">Use the top navigation for fast movement between modules, then launch detailed flows below.</p>
       </header>
 
       <section class="feature-grid" aria-label="Feature navigation">
@@ -44,6 +58,13 @@
           <h2>F4: Prescription Generation</h2>
           <p>Generate prescriptions from consultation data and prepare finalized medication instructions.</p>
           <a class="launch-btn" href="./f4/index.html">Launch F4 Feature</a>
+        </article>
+
+        <article class="feature-card feature-card-soon" aria-disabled="true">
+          <div class="status-pill">Planned</div>
+          <h2>F5-F7 Modules</h2>
+          <p>Visit history, search/navigation, and export modules will be linked here.</p>
+          <button class="launch-btn" type="button" disabled>Coming Soon</button>
         </article>
       </section>
     </main>
