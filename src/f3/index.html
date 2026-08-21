@@ -4,12 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>F3 Consultation Record Capture</title>
+    <link rel="stylesheet" href="../app-nav.css" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <p class="back-link-wrap">
-      <a href="../index.html" class="back-link">&larr; Back to Feature Launcher</a>
-    </p>
+    <header class="top-nav-wrap">
+      <nav class="top-nav" aria-label="Primary">
+        <a class="top-nav-brand" href="../index.html">Patient Management</a>
+        <div class="top-nav-links">
+          <a class="top-nav-link" href="../index.html">Home</a>
+          <a class="top-nav-link" href="../f1/index.html">F1</a>
+          <a class="top-nav-link" href="../f2/index.html">F2</a>
+          <a class="top-nav-link is-active" href="../f3/index.html" aria-current="page">F3</a>
+          <a class="top-nav-link" href="../f4/index.html">F4</a>
+          <span class="top-nav-link top-nav-link-disabled" aria-disabled="true">F5-F7 Planned</span>
+        </div>
+      </nav>
+    </header>
     <main>
       <div id="app"></div>
     </main>
