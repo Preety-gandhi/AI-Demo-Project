@@ -1,0 +1,138 @@
+:root {
+  --page-bg: linear-gradient(145deg, #eef6ff 0%, #f8fce9 45%, #ffeede 100%);
+  --panel-bg: #ffffff;
+  --line: #d3e2e6;
+  --text: #14262e;
+  --muted: #4f6770;
+  --primary: #0d6770;
+  --primary-strong: #0a4e56;
+  --secondary-btn: #e7eff2;
+  --error: #ad3340;
+  --success: #136647;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Cambria", "Times New Roman", serif;
+  color: var(--text);
+  background: var(--page-bg);
+  min-height: 100vh;
+}
+
+main {
+  width: min(1200px, 92vw);
+  margin: 1rem auto 2rem;
+}
+
+#app {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(14, 50, 58, 0.1);
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+.subtitle {
+  margin: 0.45rem 0 0.9rem;
+  color: var(--muted);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+label {
+  font-weight: 700;
+}
+
+input,
+select,
+button {
+  font: inherit;
+}
+
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.56rem 0.66rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 0.9rem;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.58rem 0.92rem;
+  cursor: pointer;
+}
+
+#apply-filter-btn {
+  background: var(--primary);
+  color: #fff;
+}
+
+#apply-filter-btn:hover {
+  background: var(--primary-strong);
+}
+
+.btn-secondary {
+  background: var(--secondary-btn);
+  color: #19333d;
+}
+
+.status-message {
+  min-height: 1.2rem;
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+
+.status-message.error {
+  color: var(--error);
+}
+
+.status-message.success {
+  color: var(--success);
+}
+
+.preview-empty {
+  color: var(--muted);
+}
+
+.visit-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.visit-card-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}

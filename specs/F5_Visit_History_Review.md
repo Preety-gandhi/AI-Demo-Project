@@ -19,7 +19,7 @@ Patient visit history may be stored in separate notes or systems, making it diff
 The system should display past visits with related vitals, complaints, diagnosis, and prescriptions when the physician opens the patient history view.
 
 ## 9. Scope
-This feature includes viewing historical consultation records for a patient and filtering those visits by date range.
+This feature includes viewing historical consultation records for a patient and filtering those visits by date range. It also includes adding F5 to the feature launcher and shared top navigation so the physician can reach patient history from every implemented feature module.
 
 ## 10. Acceptance Criteria
 ### Scenario 1: Happy path
