@@ -9,6 +9,7 @@ describe("Navigation launcher characterization", () => {
   let f3Html: string;
   let f4Html: string;
   let f5Html: string;
+  let f6Html: string;
 
   beforeAll(() => {
     const homePath = path.resolve(process.cwd(), "src/index.html");
@@ -17,6 +18,7 @@ describe("Navigation launcher characterization", () => {
     const f3Path = path.resolve(process.cwd(), "src/f3/index.html");
     const f4Path = path.resolve(process.cwd(), "src/f4/index.html");
     const f5Path = path.resolve(process.cwd(), "src/f5/index.html");
+    const f6Path = path.resolve(process.cwd(), "src/f6/index.html");
 
     homeHtml = fs.readFileSync(homePath, "utf-8");
     f1Html = fs.readFileSync(f1Path, "utf-8");
@@ -24,6 +26,7 @@ describe("Navigation launcher characterization", () => {
     f3Html = fs.readFileSync(f3Path, "utf-8");
     f4Html = fs.readFileSync(f4Path, "utf-8");
     f5Html = fs.readFileSync(f5Path, "utf-8");
+    f6Html = fs.readFileSync(f6Path, "utf-8");
   });
 
   it("happy path: home page exposes top nav links for Home and renamed module labels", () => {
@@ -34,9 +37,10 @@ describe("Navigation launcher characterization", () => {
     expect(homeHtml).toContain('<a class="top-nav-link" href="./f3/index.html">Consultation</a>');
     expect(homeHtml).toContain('<a class="top-nav-link" href="./f4/index.html">Prescription</a>');
     expect(homeHtml).toContain('<a class="top-nav-link" href="./f5/index.html">History</a>');
+    expect(homeHtml).toContain('<a class="top-nav-link" href="./f6/index.html">Search</a>');
   });
 
-  it("happy path: home launcher cards include F1-F5 live modules", () => {
+  it("happy path: home launcher cards include F1-F6 live modules", () => {
     expect(homeHtml).toContain('<h2>F1: Patient Profile Management</h2>');
     expect(homeHtml).toContain('<a class="launch-btn" href="./f1/index.html">Launch F1 Feature</a>');
     expect(homeHtml).toContain('<h2>F2: Appointment Scheduling</h2>');
@@ -47,6 +51,8 @@ describe("Navigation launcher characterization", () => {
     expect(homeHtml).toContain('<a class="launch-btn" href="./f4/index.html">Launch F4 Feature</a>');
     expect(homeHtml).toContain('<h2>F5: Visit History Review</h2>');
     expect(homeHtml).toContain('<a class="launch-btn" href="./f5/index.html">Launch F5 Feature</a>');
+    expect(homeHtml).toContain('<h2>F6: Patient Search and Navigation</h2>');
+    expect(homeHtml).toContain('<a class="launch-btn" href="./f6/index.html">Launch F6 Feature</a>');
   });
 
   it("happy path: each feature page has top nav and current section active", () => {
@@ -55,13 +61,14 @@ describe("Navigation launcher characterization", () => {
     expect(f3Html).toContain('<a class="top-nav-link is-active" href="../f3/index.html" aria-current="page">Consultation</a>');
     expect(f4Html).toContain('<a class="top-nav-link is-active" href="../f4/index.html" aria-current="page">Prescription</a>');
     expect(f5Html).toContain('<a class="top-nav-link is-active" href="../f5/index.html" aria-current="page">History</a>');
+    expect(f6Html).toContain('<a class="top-nav-link is-active" href="../f6/index.html" aria-current="page">Search</a>');
   });
 
   it("error-path characterization: planned modules remain non-navigable and disabled", () => {
     expect(homeHtml).toContain('<article class="feature-card feature-card-soon" aria-disabled="true">');
-    expect(homeHtml).toContain('<h2>F6-F7 Modules</h2>');
+    expect(homeHtml).toContain('<h2>F7 Module</h2>');
     expect(homeHtml).toContain('<button class="launch-btn" type="button" disabled>Coming Soon</button>');
-    expect(homeHtml).toContain('<span class="top-nav-link top-nav-link-disabled" aria-disabled="true">F6-F7 Planned</span>');
+    expect(homeHtml).toContain('<span class="top-nav-link top-nav-link-disabled" aria-disabled="true">F7 Planned</span>');
   });
 
   it("error-path characterization: launcher has no user-input form controls to validate", () => {
@@ -76,11 +83,11 @@ describe("Navigation launcher characterization", () => {
     expect(homeHtml).not.toMatch(/\son[a-z]+\s*=/i);
   });
 
-  it("edge cases: keeps one planned card and exactly five live launch links", () => {
+  it("edge cases: keeps one planned card and exactly six live launch links", () => {
     const plannedCards = (homeHtml.match(/feature-card-soon/g) || []).length;
     const launchLinks = homeHtml.match(/<a class="launch-btn" href="\.\/f\d\/index\.html">/g) || [];
 
     expect(plannedCards).toBe(1);
-    expect(launchLinks).toHaveLength(5);
+    expect(launchLinks).toHaveLength(6);
   });
 });

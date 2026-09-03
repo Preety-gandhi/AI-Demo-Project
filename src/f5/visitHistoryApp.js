@@ -154,5 +154,12 @@ export function createVisitHistoryApp({ mount } = {}) {
     renderForPatient(patientSelect.value);
   });
 
+  // Deep-link support: preselect the patient passed via ?patientId= (e.g. from F6 search).
+  const requestedPatientId = new URLSearchParams(window.location.search).get("patientId");
+  if (requestedPatientId && patients.some((patient) => patient.id === requestedPatientId)) {
+    patientSelect.value = requestedPatientId;
+    renderForPatient(requestedPatientId);
+  }
+
   return { renderForPatient };
 }

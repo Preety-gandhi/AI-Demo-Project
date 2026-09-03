@@ -10,10 +10,11 @@ const PORT = 8000;
 const HOSTNAME = 'localhost';
 
 const server = http.createServer((req, res) => {
-  let filePath = path.join(__dirname, 'src', req.url === '/' ? 'index.html' : req.url);
-  
+  const requestUrl = req.url.split('?')[0].split('#')[0];
+  let filePath = path.join(__dirname, 'src', requestUrl === '/' ? 'index.html' : requestUrl);
+
   // Default to index.html for root
-  if (req.url === '/') {
+  if (requestUrl === '/') {
     filePath = path.join(__dirname, 'src', 'index.html');
   }
 
