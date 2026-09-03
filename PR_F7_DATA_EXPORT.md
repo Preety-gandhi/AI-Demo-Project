@@ -13,16 +13,13 @@ specs/F7_Data_Export.md
 ### Acceptance Criteria
 
 | AC | Criterion | Status | Evidence |
-
-|-------|------------------------------------------|---------|------------------------------|
-
+|---|---|---|---|
 | AC-1 | Selecting a patient or filtered visit list and choosing Export → CSV or Export → PDF generates and downloads the requested file in the chosen format | PASS | tests/unit/F7_Data_Export.test.js:28-49; tests/integration/F7_with_F1_F5.integration.test.js:64-123 |
-
 | AC-2 | Empty data set blocks export and displays "No data available to export" | PASS | tests/unit/F7_Data_Export.test.js:55-66; tests/integration/F7_with_F1_F5.integration.test.js:126-138 |
 
 ### Test Evidence
 
-Command: `cmd /c npx.cmd vitest run tests/unit/F7_Data_Export.test.js tests/integration/F7_with_F1_F5.integration.test.js`
+Command: cmd /c npx.cmd vitest run tests/unit/F7_Data_Export.test.js tests/integration/F7_with_F1_F5.integration.test.js
 
 Result: 2 test files passed. 8 tests passed. 0 failed.
 
