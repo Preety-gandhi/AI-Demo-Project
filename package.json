@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest run",
+    "build": "node scripts/build.js",
     "test:watch": "vitest",
     "test:char": "vitest run tests/characterization",
     "lint": "eslint .",

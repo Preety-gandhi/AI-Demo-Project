@@ -10,6 +10,7 @@ describe("Navigation launcher characterization", () => {
   let f4Html: string;
   let f5Html: string;
   let f6Html: string;
+  let f7Html: string;
 
   beforeAll(() => {
     const homePath = path.resolve(process.cwd(), "src/index.html");
@@ -19,6 +20,7 @@ describe("Navigation launcher characterization", () => {
     const f4Path = path.resolve(process.cwd(), "src/f4/index.html");
     const f5Path = path.resolve(process.cwd(), "src/f5/index.html");
     const f6Path = path.resolve(process.cwd(), "src/f6/index.html");
+    const f7Path = path.resolve(process.cwd(), "src/f7/index.html");
 
     homeHtml = fs.readFileSync(homePath, "utf-8");
     f1Html = fs.readFileSync(f1Path, "utf-8");
@@ -27,6 +29,7 @@ describe("Navigation launcher characterization", () => {
     f4Html = fs.readFileSync(f4Path, "utf-8");
     f5Html = fs.readFileSync(f5Path, "utf-8");
     f6Html = fs.readFileSync(f6Path, "utf-8");
+    f7Html = fs.readFileSync(f7Path, "utf-8");
   });
 
   it("happy path: home page exposes top nav links for Home and renamed module labels", () => {
@@ -38,6 +41,7 @@ describe("Navigation launcher characterization", () => {
     expect(homeHtml).toContain('<a class="top-nav-link" href="./f4/index.html">Prescription</a>');
     expect(homeHtml).toContain('<a class="top-nav-link" href="./f5/index.html">History</a>');
     expect(homeHtml).toContain('<a class="top-nav-link" href="./f6/index.html">Search</a>');
+    expect(homeHtml).toContain('<a class="top-nav-link" href="./f7/index.html">Export</a>');
   });
 
   it("happy path: home launcher cards include F1-F6 live modules", () => {
@@ -53,6 +57,8 @@ describe("Navigation launcher characterization", () => {
     expect(homeHtml).toContain('<a class="launch-btn" href="./f5/index.html">Launch F5 Feature</a>');
     expect(homeHtml).toContain('<h2>F6: Patient Search and Navigation</h2>');
     expect(homeHtml).toContain('<a class="launch-btn" href="./f6/index.html">Launch F6 Feature</a>');
+    expect(homeHtml).toContain('<h2>F7: Data Export</h2>');
+    expect(homeHtml).toContain('<a class="launch-btn" href="./f7/index.html">Launch F7 Feature</a>');
   });
 
   it("happy path: each feature page has top nav and current section active", () => {
@@ -62,13 +68,12 @@ describe("Navigation launcher characterization", () => {
     expect(f4Html).toContain('<a class="top-nav-link is-active" href="../f4/index.html" aria-current="page">Prescription</a>');
     expect(f5Html).toContain('<a class="top-nav-link is-active" href="../f5/index.html" aria-current="page">History</a>');
     expect(f6Html).toContain('<a class="top-nav-link is-active" href="../f6/index.html" aria-current="page">Search</a>');
+    expect(f7Html).toContain('<a class="top-nav-link is-active" href="../f7/index.html" aria-current="page">Export</a>');
   });
 
   it("error-path characterization: planned modules remain non-navigable and disabled", () => {
-    expect(homeHtml).toContain('<article class="feature-card feature-card-soon" aria-disabled="true">');
-    expect(homeHtml).toContain('<h2>F7 Module</h2>');
-    expect(homeHtml).toContain('<button class="launch-btn" type="button" disabled>Coming Soon</button>');
-    expect(homeHtml).toContain('<span class="top-nav-link top-nav-link-disabled" aria-disabled="true">F7 Planned</span>');
+    expect(homeHtml).not.toContain('<article class="feature-card feature-card-soon" aria-disabled="true">');
+    expect(homeHtml).not.toContain('<span class="top-nav-link top-nav-link-disabled" aria-disabled="true">F7 Planned</span>');
   });
 
   it("error-path characterization: launcher has no user-input form controls to validate", () => {
@@ -83,11 +88,11 @@ describe("Navigation launcher characterization", () => {
     expect(homeHtml).not.toMatch(/\son[a-z]+\s*=/i);
   });
 
-  it("edge cases: keeps one planned card and exactly six live launch links", () => {
+  it("edge cases: keeps no planned card and exactly seven live launch links", () => {
     const plannedCards = (homeHtml.match(/feature-card-soon/g) || []).length;
     const launchLinks = homeHtml.match(/<a class="launch-btn" href="\.\/f\d\/index\.html">/g) || [];
 
-    expect(plannedCards).toBe(1);
-    expect(launchLinks).toHaveLength(6);
+    expect(plannedCards).toBe(0);
+    expect(launchLinks).toHaveLength(7);
   });
 });

@@ -1,0 +1,158 @@
+:root {
+  --page-bg: linear-gradient(145deg, #eef6ff 0%, #f8fce9 45%, #ffeede 100%);
+  --panel-bg: #ffffff;
+  --line: #d3e2e6;
+  --text: #14262e;
+  --muted: #4f6770;
+  --primary: #0d6770;
+  --primary-strong: #0a4e56;
+  --secondary-btn: #e7eff2;
+  --error: #ad3340;
+  --success: #136647;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--page-bg);
+  font-family: "Trebuchet MS", "Gill Sans", sans-serif;
+}
+
+main {
+  width: min(1000px, 92vw);
+  margin: 1rem auto 2rem;
+}
+
+#app {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel-bg);
+  box-shadow: 0 10px 30px rgba(14, 50, 58, 0.1);
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+.eyebrow,
+.summary-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin: 0.45rem 0 1.2rem;
+  color: var(--muted);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+label {
+  font-weight: 700;
+}
+
+select,
+button {
+  font: inherit;
+}
+
+select {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.actions {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.62rem 0.95rem;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#export-btn {
+  color: #fff;
+  background: var(--primary);
+}
+
+#export-btn:hover:not(:disabled) {
+  background: var(--primary-strong);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-secondary {
+  color: #19333d;
+  background: var(--secondary-btn);
+}
+
+.status-message {
+  min-height: 1.25rem;
+  margin: 1rem 0 0;
+  font-weight: 700;
+}
+
+.status-message.error {
+  color: var(--error);
+}
+
+.status-message.success {
+  color: var(--success);
+}
+
+.export-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.export-summary > div {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.8rem;
+  border-left: 3px solid var(--primary);
+  background: #f5faf9;
+}
+
+@media (max-width: 620px) {
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .export-summary {
+    grid-template-columns: 1fr;
+  }
+}
