@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { exportData } from '../../src/f7/dataExportService.js';
 
 describe('F7 - Data Export (CSV/PDF)', () => {
   let exportService;
@@ -65,5 +66,18 @@ describe('F7 - Data Export (CSV/PDF)', () => {
       expect(result.success).toBe(false);
       expect(result.error).toBe('No data available to export');
     });
+  });
+
+  it('produces valid PDF bytes for non-empty exports', () => {
+    const result = exportData(
+      [{ patientId: 'p-001', diagnosis: 'Migraine' }],
+      'pdf',
+      'patients',
+    );
+
+    expect(result.success).toBe(true);
+    expect(result.fileName).toBe('patients.pdf');
+    expect(result.mimeType).toBe('application/pdf');
+    expect(result.content).toMatch(/^%PDF/);
   });
 });
